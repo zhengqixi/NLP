@@ -18,6 +18,7 @@ import re
 # R. sen2
 # ...
 # 12345
+import codecs
 
 
 def read_file():
@@ -75,6 +76,7 @@ def read_file():
         para_list.append(Paragraph())
         para_list[-1].first = line.strip('\n') + ' '
         num_ans += 1
+    f.close()
     return para_list
 
 def print_paras(para_list):

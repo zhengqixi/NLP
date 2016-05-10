@@ -3,10 +3,10 @@ from __future__ import print_function, division
 from Paragraph import Paragraph
 from read_examples import read_examples
 
-import nltk
 from nltk import word_tokenize, ngrams
 
 from nltk.tag.perceptron import PerceptronTagger
+from nltk.tag import _pos_tag
 tagger = PerceptronTagger()
 
 #N = 3 # N-grams
@@ -14,14 +14,13 @@ tagger = PerceptronTagger()
 # return POS N grams of each sentence
 def POS_Ngram(N, example_set, N_grams, i):
     for para in example_set:
-        if( i < 3 ):
-            tokens = nltk.word_tokenize(para.sentences[i])
-        else:
-            tokens = nltk.word_tokenize(para.first)
-        #tokens = nltk.pos_tag(tokens)
+        if i == 0: # get first sentence
+            tokens = word_tokenize(para.first)
+        else: # get ith sentence
+            tokens = word_tokenize(para.sentences[int(para.order[i-1])-1])
         tagset = None
-        tokens = nltk.tag._pos_tag(tokens, tagset, tagger)
-        #print(tokens)
+        tokens = _pos_tag(tokens, tagset, tagger)
+
         tags = [x[1] for x in tokens] # take POS tags only
 
         n_tags = list(ngrams(tags, N))
@@ -47,9 +46,10 @@ def main():
       else:
          break
 
-    N_grams = dict() # dictionary to hold unique N gram POS tags and each count
-    for i in range(4):
-        POS_Ngram(N, examples, N_grams, i)
+    N_grams = list() # list of dictionaries to hold unique N gram POS tags and each count, per sentence
+    for i in range(6): # 0 is for the first sentence, 1 to 5 are for order indexing
+        N_grams.append(dict())
+        POS_Ngram(N, examples, N_grams[-1], i)
 
     #print(N_grams)
     if N == 3:
@@ -60,9 +60,12 @@ def main():
         filename = 'output-'+ str(N) + 'grams.txt'
 
     f = open(filename, 'w+')
-    for key, value in N_grams.iteritems():
-        out = str(key) + ' ' + str(value) + '\n'
-        f.write(out)
+    count = 0
+    for ngram in N_grams:
+        f.write("list " + str(count))
+        for key, value in ngram.iteritems():
+            out = str(key) + ' ' + str(value) + '\n'
+            f.write(out)
     f.close()
     print('Results written to '+ filename)
 
