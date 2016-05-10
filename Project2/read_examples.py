@@ -5,7 +5,6 @@ from Paragraph import Paragraph
 def read_examples(examples):
     #f = openFile("Enter training document file name: ")
     f = open('corpus/SHSAT_train.txt', 'rU')
-    N = f.readline() # Read in total number of examples in this file
     count = 0;
     for line in f:
         if (line == '\n'): # new example
@@ -20,15 +19,13 @@ def read_examples(examples):
             count += 1
             examples[-1].add_sentence(line)
     f.close()
-    return N
 
 # read in training file and print out for debugging
 # number of examples
 # for each paragraph - first sentence, scrambled sentences, and correct ordering
 def main():
     examples = list()
-    N = read_examples(examples)
-    print(N)
+    read_examples(examples)
     print(str(examples))
 
 if __name__ == "__main__":
