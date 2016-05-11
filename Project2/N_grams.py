@@ -18,6 +18,7 @@ class N_grams_training:
 
 # return POS N grams of each sentence
 def POS_Ngram(N, example_set, N_grams, i):
+
     for para in example_set:
         if i == 0: # get first sentence
             tokens = word_tokenize(para.first)
@@ -67,7 +68,8 @@ def main():
     f = open(filename, 'w+')
     count = 0
     for ngram in N_grams:
-        f.write("list " + str(count++) + '\n')
+        f.write("list " + str(count) + '\n')
+        count += 1
         for key, value in ngram.iteritems():
             out = str(key) + ' ' + str(value) + '\n'
             f.write(out)
