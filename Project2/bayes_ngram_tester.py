@@ -45,20 +45,26 @@ def main():
                     current_score += score * log10( naive_bayes_model.token_probability[i].get( pos_test_bayes, 1 ) )
                 #sentence_scores.append( ( current_score, para[j] )
                 sentence_scores.append( current_score )
-            f.write(str(sentence_scores) + '\n')
+            #f.write(str(sentence_scores) + '\n')
             ordering_scores.append(sentence_scores)
-        f.write('\n\n')
+        #f.write('\n\n')
 
+        for m in range(len(ordering_scores)): # iterate through sentence orders
+            nth_sentence = ordering_scores[m]
+            for i in range(len(nth_sentence)): # iterate through choice possibilities
+                if len(current_paragraph.predicted_order) == 0:
+                    choice = nth_sentence.index(min(nth_sentence))
+                else:
+                    already_chosen = current_paragraph.predicted_order[-1] # last one added
+                    for j in range(i,5):
+                        ordering_scores[j][already_chosen] = 0 # set to 0, this sentence already chosen
+                choice = nth_sentence.index(min(nth_sentence))
+                #print(choice)
+                current_paragraph.predicted_order.append(choice)
 
-        #for nth_sentence in ordering_scores:
+        current_paragraph.order_sentence()
+        f.write(str(current_paragraph))
 
-            #choice = nth_sentence.index(min(nth_sentence))
-
-
-
-            #current_paragraph.predicted_order.append(choice)
-
-        #f.write(str(ordering_scores[-1]) + '\n')
 
 
 if __name__ == "__main__":
