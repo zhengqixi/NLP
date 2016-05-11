@@ -82,8 +82,7 @@ def main():
     correct_total = 0
     paragraphs = test()
     sentence_micro_correct = [0] * 5
-    print(sentence_micro_correct)
-    sentence_micro_incorrect = sentence_micro_correct
+    sentence_micro_incorrect = [0] * 5
     for paragraph in paragraphs:
         correct_order = paragraph.correct_order
         predict_order = paragraph.predicted_order
@@ -93,13 +92,13 @@ def main():
             incorrect_total += 1
         else:
             correct_total += 1
-        for i in range(0,4):
-            if correct_order[i] == predict_order[i]:
+        for i in range(5):
+            if int(correct_order[i]) == predict_order[i]:
                 sentence_micro_correct[i] += 1
             else:
                 sentence_micro_incorrect[i] += 1
 
-    print('Total Correct :' + str(correct_total)  + '\nTotal Incorrect: ' + str(incorrect_total) + '\nPercentage right: ' + str(correct_total/(correct_total+incorrect_total)))
+    print('Total Completely Correct: ' + str(correct_total)  + '\nTotal Incorrect: ' + str(incorrect_total) + '\nPercentage right: ' + str(correct_total/(correct_total+incorrect_total)))
     print(sentence_micro_correct)
 
 if __name__ == "__main__":

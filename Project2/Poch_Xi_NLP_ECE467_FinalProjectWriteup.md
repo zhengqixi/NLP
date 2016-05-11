@@ -38,25 +38,49 @@ Run in command line (or use a python IDE)
 
     python bayes_ngram_tester.py
 
-The first output file, results.txt, contain the paragraphs of the test set. The first line is the first given sentence. The first paragraph is the scrambled order. The second paragraph is the predicted order. The last paragraph is the correct ordering.
+The output file, results.txt, contain the paragraphs of the test set. The first line is the first given sentence. The first paragraph is the scrambled order. The second paragraph is the predicted order. The last paragraph is the correct ordering.
 
-The second output file, stats.txt, contains microaveraged data (how many first sentences, second sentences, and so on that the system correctly predicted), as well as macroaveraged data (how many sentences were correct out of each 5 sentence paragraph).
+The command line printout displays microaveraged data (how many first sentences, second sentences, and so on that the system correctly predicted), as well as macroaveraged data (how many sentences were correct out of each 5 sentence paragraph).
 
     bayes_ngram_tester.py
+Calculates probability of a sentence being the nth one using POS Naive Bayes and POS N-grams. 
 
     Paragraph.py
+Data structure to hold sentences and correct ordering. Also print out in a nice format.
 
     read_examples.py
+Read in examples from the specified file.
 
     N_grams.py
+Calculate normalized N gram counts for each nth sentence.
 
     Naive_train.py
-
+Calculate Naive Bayes probability for each nth sentence for training.
 
 
 ----
 ## Results 
 
+
+### 2-Grams
+
+Total Completely Correct: 0
+
+Total Incorrect: 33
+
+Percentage right: 0.0
+
+[4, 5, 3, 8, 5]
+
+### 3-Grams
+
+Total Completely Correct: 0
+
+Total Incorrect: 33
+
+Percentage right: 0.0
+
+[11, 5, 11, 8, 3]
 
 ----
 ## Reflections
