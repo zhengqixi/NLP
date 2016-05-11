@@ -24,8 +24,11 @@ def POS_Ngram(N, example_set, i):
         if i == 0: # get first sentence
             tokens = word_tokenize(para.first)
         else: # get ith sentence
-            tokens = word_tokenize(para.scrambled_sentences[int(para.correct_order[i-1])-1])
+            para.order_sentence()
+            tokens = word_tokenize(para.ordered_sentences[i-1])
+            #tokens = word_tokenize(para.scrambled_sentences[int(para.correct_order[i-1])-1])
         tagset = None
+        #print(tokens)
         tokens = _pos_tag(tokens, tagset, tagger)
 
         tags = [x[1] for x in tokens] # take POS tags only
@@ -76,7 +79,7 @@ def main():
     for ngram in N_grams:
         f.write("list " + str(count) + '\n')
         count += 1
-        for key, value in ngram.iteritems():
+        for key, value in ngram.items():
             out = str(key) + ' ' + str(value) + '\n'
             f.write(out)
     f.close()
