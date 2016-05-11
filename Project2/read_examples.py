@@ -15,7 +15,7 @@ def read_examples(examples):
             examples[-1].set_first(line.decode("ascii", "ignore"))
         elif (count == 6): # end of example - read in correct ordering
             count = 0
-            examples[-1].set_order(line.decode("ascii", "ignore"))
+            examples[-1].set_correct_order(line.decode("ascii", "ignore"))
         else: # read in sentence
             count += 1
             examples[-1].add_sentence(line.decode("ascii", "ignore"))
@@ -23,10 +23,12 @@ def read_examples(examples):
 
 # read in training file and print out for debugging
 # number of examples
-# for each paragraph - first sentence, scrambled sentences, and correct ordering
+# for each paragraph - first sentence, scrambled sentences, unscrambled, and correct ordering
 def main():
     examples = list()
     read_examples(examples)
+    for paragraph in examples:
+        paragraph.order_sentence()
     print(str(examples))
 
 if __name__ == "__main__":

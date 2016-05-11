@@ -21,9 +21,9 @@ class Paragraph:
         self.scrambled_sentences.append(sen.strip('\n')[3:])
         
     def order_sentence(self):
-        if not self.predicted_order or not self.scrambled_sentences:
-                print('Please set predicted order and scrambled sentences')
-                return False
+        #if not self.predicted_order or not self.scrambled_sentences:
+        #        print('Please set predicted order and scrambled sentences')
+        #        return False
         self.ordered_sentences = [sentence for order, sentence in sorted(zip(self.correct_order, self.scrambled_sentences))]
 
     def __str__(self):
@@ -39,9 +39,9 @@ class Paragraph:
         sentences = ""
         order = ""
         correct_sentences = ""
-        for i in range(len(self.sentences)):
+        for i in range(len(self.scrambled_sentences)):
             sentences += self.scrambled_sentences[i] + '\n'
             correct_sentences += self.ordered_sentences[i] + '\n'
-        for i in range(len(self.order)):
+        for i in range(len(self.correct_order)):
             order += self.correct_order[i]
         return '\n' + self.first + '\n' + sentences + '\n' + correct_sentences +  order + '\n'
