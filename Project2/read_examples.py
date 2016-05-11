@@ -2,9 +2,10 @@ from __future__ import print_function, division
 
 from Paragraph import Paragraph
 import codecs as codecs
-def read_examples(examples):
+def read_examples(examples, filename):
     #f = openFile("Enter training document file name: ")
-    f = open('corpus/SHSAT_train.txt', 'rU')
+    f = open(filename, 'rU')
+    #f = open('corpus/SHSAT_train.txt', 'rU')
     #f = codecs.open('corpus/SHSAT_train.txt', encoding='utf-8', errors='replace')
     count = 0
     for line in f:
@@ -26,7 +27,8 @@ def read_examples(examples):
 # for each paragraph - first sentence, scrambled sentences, unscrambled, and correct ordering
 def main():
     examples = list()
-    read_examples(examples)
+    filename = 'corpus/SHSAT_train.txt'
+    read_examples(examples, filename)
     for paragraph in examples:
         paragraph.order_sentence()
     print(str(examples))

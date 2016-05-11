@@ -13,12 +13,12 @@ class N_grams_training:
     def __init__(self, N, examples): # N is N-grams, examples is a list of Paragraphs
         self.N_grams = list() # list of dictionaries to hold unique N gram POS tags and each count, per sentence
         for i in range(6): # 0 is for the first sentence, 1 to 5 are for order indexing
-            N_grams.append(dict())
-            POS_Ngram(N, examples, self.N_grams[-1], i)
+            self.N_grams.append(dict())
+            self.N_grams[-1] = POS_Ngram(N, examples, i)
 
 # return POS N grams of each sentence
-def POS_Ngram(N, example_set, N_grams, i):
-
+def POS_Ngram(N, example_set, i):
+    N_grams = dict()
     for para in example_set:
         if i == 0: # get first sentence
             tokens = word_tokenize(para.first)
@@ -40,7 +40,8 @@ def POS_Ngram(N, example_set, N_grams, i):
 
 def main():
     examples = list()
-    read_examples(examples) # read examples from example file
+    filename = 'corpus/SHSAT_train.txt'
+    read_examples(examples, filename) # read examples from example file
 
     N = 0 # N-grams
     while True:
@@ -55,7 +56,7 @@ def main():
     N_grams = list() # list of dictionaries to hold unique N gram POS tags and each count, per sentence
     for i in range(6): # 0 is for the first sentence, 1 to 5 are for order indexing
         N_grams.append(dict())
-        POS_Ngram(N, examples, N_grams[-1], i)
+        N_grams[-1] = POS_Ngram(N, examples, i)
 
     #print(N_grams)
     if N == 3:

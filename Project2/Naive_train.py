@@ -24,7 +24,7 @@ class Naive_Bayes:
             pos_tokens = _pos_tag(word_tokenize(sentence), None, self.tagger)
             pos_tokens = [x[1] for x in pos_tokens]
             token.extend(pos_tokens)
-        
+
 
     def train(self):
         for tokens, dictionary in zip(self.tokens, self.token_probability):
@@ -36,7 +36,7 @@ class Naive_Bayes:
             size = len(tokens)
             for token, count in dictionary.items():
                 dictionary[token] = log10(count/size)
-            
+
 
 
 def main():
