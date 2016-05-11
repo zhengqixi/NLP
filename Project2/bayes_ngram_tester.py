@@ -4,9 +4,20 @@ from Naive_train import Naive_Bayes
 from read_examples import read_examples
 from math import log10
 
-N = 3 # N-grams
+#N = 2 # N-grams
 
 def main():
+    # User input for N
+    N = 0 # N-grams
+    while True:
+      try:
+         N = int(input("Enter N: "))
+      except ValueError:
+         print("Not an integer!")
+         continue
+      else:
+         break
+
     # TRAINING DATA
     train_paragraphs = list() # hold training Paragraphs
     filename_train = 'corpus/SHSAT_train.txt'
@@ -25,7 +36,7 @@ def main():
     filename_test = 'corpus/SHSAT_test.txt'
     read_examples(test_paragraphs, filename_test)
 
-    f = open("results.txt", "w+")
+    f = open("results2.txt", "w+")
 
     for k in range(len(test_paragraphs)):
         # determine sentence 1, 2, 3, 4, 5
