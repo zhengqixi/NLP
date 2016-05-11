@@ -25,6 +25,9 @@ class Paragraph:
         #        print('Please set predicted order and scrambled sentences')
         #        return False
         self.ordered_sentences = [sentence for order, sentence in sorted(zip(self.correct_order, self.scrambled_sentences))]
+        
+    def order_predicted(self):
+        self.ordered_sentences = [sentence for order, sentence in sorted(zip(self.predicted_order, self.scrambled_sentences))]
 
     def __str__(self):
         sentences = ""
