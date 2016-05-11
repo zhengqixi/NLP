@@ -12,31 +12,53 @@ def main():
     filename_train = 'corpus/SHSAT_train.txt'
     read_examples(train_paragraphs, filename_train)
     n_grams_train = N_grams_training(N, train_paragraphs) # N grams from training set
-    token_probability = Naive_Bayes(N) # Naive Bayes probabilities from training set
+
+    naive_bayes_model = Naive_Bayes(5) # Naive Bayes probabilities from training set
+    for example in train_paragraphs:
+        example.order_sentence()
+        naive_bayes_model.add_token(example)
+    naive_bayes_model.train()
     # both have lists of dictionaries, where the position in the list corresponds to the sentence
 
     # TEST DATA
     test_paragraphs = list() # hold test Paragraphs
-    filename_test = 'corpus/SHSAT_train.txt'
+    filename_test = 'corpus/SHSAT_test.txt'
     read_examples(test_paragraphs, filename_test)
 
-    #for para in test_paragraphs:
-        # determine sentence 1, 2, 3, 4, 5
+    f = open("results.txt", "w+")
 
-    for i in range(5): # iterate through position possibilities
-        sentence_scores = list() # keep scores for each pos for each sentence
-        para = list()
-        para.append(test_paragraphs[1])
-        para_POS = POS_Ngram(1, para, i+1) # dict: POS tags for each word
-        for j in range(5): # iterate through sentence possibilities
-            n_grams_test = POS_Ngram(N, para, j+1) # dict: N grams of this sentence
-            current_score = 0
-            for pos_test_ngram, score in n_grams_test.items(): # iterate through POS N grams of test sentence
-                current_score += score * log10( n_grams_train.N_grams[i+1].get( pos_test_ngram, 1 ) )  # calculate log likelyhood of N gram in test set occuring
-            #for pos_test_bayes, score in para_POS.items():
-            #   current_score += log10( token_probability(i).get( pos_test_bayes, 1 ) )
-            sentence_scores.append(current_score)
-        print(sentence_scores)
+    for k in range(len(test_paragraphs)):
+        # determine sentence 1, 2, 3, 4, 5
+        current_paragraph = test_paragraphs[k]
+        ordering_scores = list()
+        for i in range(5): # iterate through position possibilities
+            sentence_scores = list() # keep scores for each pos for each sentence
+            para = list()
+            para.append(current_paragraph)
+            para_POS = POS_Ngram(1, para, i+1) # dict: POS tags for each word
+            for j in range(5): # iterate through sentence possibilities
+                n_grams_test = POS_Ngram(N, para, j+1) # dict: N grams of this sentence
+                current_score = 0
+                for pos_test_ngram, score in n_grams_test.items(): # iterate through POS N grams of test sentence
+                    current_score += score * log10( n_grams_train.N_grams[i+1].get( pos_test_ngram, 1 ) )  # calculate log likelyhood of N gram in test set occuring
+                for pos_test_bayes, score in para_POS.items():
+                    current_score += score * log10( naive_bayes_model.token_probability[i].get( pos_test_bayes, 1 ) )
+                #sentence_scores.append( ( current_score, para[j] )
+                sentence_scores.append( current_score )
+            f.write(str(sentence_scores) + '\n')
+            ordering_scores.append(sentence_scores)
+        f.write('\n\n')
+
+
+        #for nth_sentence in ordering_scores:
+
+            #choice = nth_sentence.index(min(nth_sentence))
+
+
+
+            #current_paragraph.predicted_order.append(choice)
+
+        #f.write(str(ordering_scores[-1]) + '\n')
 
 
 if __name__ == "__main__":

@@ -35,7 +35,7 @@ class Naive_Bayes:
                     dictionary[token] = 1
             size = len(tokens)
             for token, count in dictionary.items():
-                dictionary[token] = log10(count/size)
+                dictionary[token] = count/size
 
 
 

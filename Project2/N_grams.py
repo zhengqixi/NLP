@@ -19,6 +19,7 @@ class N_grams_training:
 # return POS N grams of each sentence
 def POS_Ngram(N, example_set, i):
     N_grams = dict()
+    count = 0
     for para in example_set:
         if i == 0: # get first sentence
             tokens = word_tokenize(para.first)
@@ -32,10 +33,14 @@ def POS_Ngram(N, example_set, i):
         n_tags = list(ngrams(tags, N))
 
         for tag_set in n_tags:
+            count += 1
             if tag_set in N_grams:
                 N_grams[tag_set] += 1
             else:
                 N_grams[tag_set] = 1 # first occurence of tagset
+    # Normalize N_gram counts by total number of N grams for this set of sentences
+    for ngram, num in N_grams.items():
+        N_grams[ngram] = num/count
     return N_grams
 
 def main():
