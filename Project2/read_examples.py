@@ -12,13 +12,13 @@ def read_examples(examples):
             examples.append(Paragraph())
         elif (count == 0):
             count += 1
-            examples[-1].set_first(line.decode("ascii", "ignore"))
+            examples[-1].set_first(line)
         elif (count == 6): # end of example - read in correct ordering
             count = 0
-            examples[-1].set_correct_order(line.decode("ascii", "ignore"))
+            examples[-1].set_correct_order(line)
         else: # read in sentence
             count += 1
-            examples[-1].add_sentence(line.decode("ascii", "ignore"))
+            examples[-1].add_sentence(line)
     f.close()
 
 # read in training file and print out for debugging
