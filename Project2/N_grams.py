@@ -9,7 +9,12 @@ from nltk.tag.perceptron import PerceptronTagger
 from nltk.tag import _pos_tag
 tagger = PerceptronTagger()
 
-#N = 3 # N-grams
+class N_grams_training:
+    def __init__(self, N, examples): # N is N-grams, examples is a list of Paragraphs
+        self.N_grams = list() # list of dictionaries to hold unique N gram POS tags and each count, per sentence
+        for i in range(6): # 0 is for the first sentence, 1 to 5 are for order indexing
+            N_grams.append(dict())
+            POS_Ngram(N, examples, self.N_grams[-1], i)
 
 # return POS N grams of each sentence
 def POS_Ngram(N, example_set, N_grams, i):
@@ -17,7 +22,7 @@ def POS_Ngram(N, example_set, N_grams, i):
         if i == 0: # get first sentence
             tokens = word_tokenize(para.first)
         else: # get ith sentence
-            tokens = word_tokenize(para.sentences[int(para.order[i-1])-1])
+            tokens = word_tokenize(para.scrambled_sentences[int(para.correct_order[i-1])-1])
         tagset = None
         tokens = _pos_tag(tokens, tagset, tagger)
 
@@ -62,7 +67,7 @@ def main():
     f = open(filename, 'w+')
     count = 0
     for ngram in N_grams:
-        f.write("list " + str(count))
+        f.write("list " + str(count++) + '\n')
         for key, value in ngram.iteritems():
             out = str(key) + ' ' + str(value) + '\n'
             f.write(out)
