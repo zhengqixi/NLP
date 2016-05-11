@@ -15,7 +15,7 @@ class Paragraph:
         self.correct_order = list(order.strip('\n'))
 
     def set_predicted_order(self, order):
-        self.predicted_order = list(order,strip('\n'))
+        self.predicted_order = list(order.strip('\n'))
 
     def add_sentence(self, sen): # add sentence to list, stripping newline and letter designation
         self.scrambled_sentences.append(sen.strip('\n')[3:])

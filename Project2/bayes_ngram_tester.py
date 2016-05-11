@@ -62,16 +62,15 @@ def test():
 
         for m in range(len(ordering_scores)): # iterate through sentence orders
             nth_sentence = ordering_scores[m]
-            for i in range(len(nth_sentence)): # iterate through choice possibilities
-                if len(current_paragraph.predicted_order) == 0:
-                    choice = nth_sentence.index(min(nth_sentence))
-                else:
-                    already_chosen = current_paragraph.predicted_order[-1] # last one added
-                    for j in range(i,5):
-                        ordering_scores[j][already_chosen] = 0 # set to 0, this sentence already chosen
+            #for i in range(len(nth_sentence)): # iterate through choice possibilities
+            if len(current_paragraph.predicted_order) == 0:
                 choice = nth_sentence.index(min(nth_sentence))
-                #print(choice)
-                current_paragraph.predicted_order.append(choice)
+            else:
+                already_chosen = current_paragraph.predicted_order[-1] - 1 # last one added
+                for j in range(m,5):
+                    ordering_scores[j][already_chosen] = 0 # set to 0, this sentence already chosen
+            choice = nth_sentence.index(min(nth_sentence)) + 1 # To match indexing of correct_order
+            current_paragraph.predicted_order.append(choice)
 
         current_paragraph.order_sentence()
         f.write(str(current_paragraph))
@@ -84,7 +83,7 @@ def main():
     paragraphs = test()
     sentence_micro_correct = [0] * 5
     print(sentence_micro_correct)
-    sentence_micro_incorrect = sentence_micro_correct 
+    sentence_micro_incorrect = sentence_micro_correct
     for paragraph in paragraphs:
         correct_order = paragraph.correct_order
         predict_order = paragraph.predicted_order
