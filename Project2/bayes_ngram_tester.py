@@ -6,7 +6,7 @@ from math import log10
 
 #N = 2 # N-grams
 
-def main():
+def test():
     # User input for N
     N = 0 # N-grams
     while True:
@@ -75,8 +75,33 @@ def main():
 
         current_paragraph.order_sentence()
         f.write(str(current_paragraph))
+    return test_paragraphs
 
 
+def main():
+    incorrect_total = 0
+    correct_total = 0
+    paragraphs = test()
+    sentence_micro_correct = [0] * 5
+    print(sentence_micro_correct)
+    sentence_micro_incorrect = sentence_micro_correct 
+    for paragraph in paragraphs:
+        correct_order = paragraph.correct_order
+        predict_order = paragraph.predicted_order
+        print('Correct Order: ' + str(correct_order))
+        print('Predicted order: '+ str(predict_order))
+        if correct_order != predict_order:
+            incorrect_total += 1
+        else:
+            correct_total += 1
+        for i in range(0,4):
+            if correct_order[i] == predict_order[i]:
+                sentence_micro_correct[i] += 1
+            else:
+                sentence_micro_incorrect[i] += 1
+
+    print('Total Correct :' + str(correct_total)  + '\nTotal Incorrect: ' + str(incorrect_total) + '\nPercentage right: ' + str(correct_total/(correct_total+incorrect_total)))
+    print(sentence_micro_correct)
 
 if __name__ == "__main__":
     main()
