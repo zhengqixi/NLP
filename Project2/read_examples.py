@@ -3,10 +3,7 @@ from __future__ import print_function, division
 from Paragraph import Paragraph
 import codecs as codecs
 def read_examples(examples, filename):
-    #f = openFile("Enter training document file name: ")
     f = open(filename, 'rU')
-    #f = open('corpus/SHSAT_train.txt', 'rU')
-    #f = codecs.open('corpus/SHSAT_train.txt', encoding='utf-8', errors='replace')
     count = 0
     for line in f:
         if (line == '\n'): # new example

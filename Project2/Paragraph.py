@@ -56,7 +56,8 @@ class Paragraph:
 
         for i in range(len(self.correct_order)):
             order += self.correct_order[i]
-        return '\n' + self.first + '\n' + sentences + '\n' + predicted_sen + '\n' + correct_sentences +  order + '\n'
+        return '\n' + self.first + '\n' + 'Original Scrambled Order: \n \n' +  sentences + '\n' + 'Predicted Order: \n \n' + predicted_sen + '\n'+ 'Correct Order: \n \n' + correct_sentences + '\n'
+
     def __repr__(self):
         sentences = ""
         order = ""

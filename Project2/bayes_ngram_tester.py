@@ -88,6 +88,7 @@ def main():
         predict_order = paragraph.predicted_order
         print('Correct Order: ' + str(correct_order))
         print('Predicted order: '+ str(predict_order))
+        print('\n')
         if correct_order != predict_order:
             incorrect_total += 1
         else:
